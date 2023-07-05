@@ -8,41 +8,25 @@ function GeneratePageContent($subtab_slug) //Предположим что $subt
     $additionalContent = "Дополнительный контент $subtab_slug";
 
     switch ($subtab_slug) {
-        case 'my_orders':
-            $additionalContent = GenerateMyOrders();
-            if (isset($_GET["edit"]) && isset($_GET["orderid"])) {
-                $additionalContent = GenerateEditAGO($_GET["orderid"]);
-            }
-            if (isset($_GET["watch"]) && isset($_GET["orderid"])) {
-                $additionalContent = GenerateWatchAGO($_GET["orderid"]);
-            }
-            break;
+        
         case 'join':
+            //Эти функции возвращают html код. Соответственно создание таких функций - ответственность frontend разработчиков
             $additionalContent = GenerateJoinAGO();
             break;
         case 'create':
             $additionalContent = GenerateCreateAGO(1);
-            if (isset($_GET["part2"])) {
-                $additionalContent = GenerateCreateAGO(2);
-            }
             break;
         case 'created':
             $additionalContent = GenerateMineAGO();
             break;
-        case 'main': 
-            $additionalContent = GenerateMainPage();
-            break;
     }
+    //После того как функции вернули нам html код, мы должны его вывести на экран
+    //Вывод происходит посредством ф-ции echo
 
     echo "<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() { //этот код выполнится в момент загрузки контента страницы
       var additionalContent = document.createElement('div');
-      additionalContent.innerHTML = ' $additionalContent';
-      additionalContent.classList.add('woocommerce-MyAccount-content');
-      additionalContent.classList.add('ago-style-content-zone');
-      var targetElement = document.querySelector('.woocommerce-MyAccount-content');
-      if (targetElement) {
-        targetElement.parentNode.insertBefore(additionalContent, targetElement.nextSibling);
+      additionalContent.innerHTML = ' $additionalContent'; //а здесь мы обращаемся непосредственно к нашему html коду и вставляем его в созданный нами div
       }
     });
     </script>
@@ -50,6 +34,7 @@ function GeneratePageContent($subtab_slug) //Предположим что $subt
 
 }
 
+//ещё один пример работы с html кодом 
 function GenerateMainPage(){
     $content = "
     <div class='infosectionAll'>
