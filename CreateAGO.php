@@ -1,27 +1,17 @@
 <?php 
 function GenerateCreateAGO($part)
 {
+    //Здесь мы формируем html код и записываем его в переменную $content
     $content = "<h3>Создание заказа</h3>";
     if($part == 1){
-        if(GetActiveCreatedAGO(get_current_user_id()) != 0){     
-            $generateCreateForm = GenerateExistNotice();
-        } else {
             $generateCreateForm = GenerateCreateForm();
-        }
-    }
-    else {
-        $content .= "<h5 class='AGOSuccess'>Ваш заказ, создан!</br> Вступите в него!</h5>";
-        if(isset($_GET["invitecode"])){
-            $content .="<p class='AGOCreInvCode'><strong>Инвайт код: </strong>";
-            $content .= $_GET["invitecode"];
-            $content .= '</p>';
-        }
-        $generateCreateForm = GenerateJoinForm(2);
     }
     
     $content .= "<div id='CreateTheOrder'>" . $generateCreateForm . "</div>";
     return json_encode($content, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP);
 }
+
+//А этот метод - ответственность frontend разработчиков. Здесь идёт разработка исключительно html кода
 function GenerateCreateForm() {
     $form = "
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
