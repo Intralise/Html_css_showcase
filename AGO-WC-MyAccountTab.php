@@ -20,6 +20,12 @@ function GeneratePageContent($subtab_slug) //Предположим что $subt
             $additionalContent = GenerateMineAGO();
             break;
     }
+
+    //Небольшая вставка про отладку
+    $var = 'test';
+    LogTXT('Значение, которое мы хотим увидеть', $var);
+
+
     //После того как функции вернули нам html код, мы должны его вывести на экран
     //Вывод происходит посредством ф-ции echo
 
@@ -53,3 +59,13 @@ function GenerateMainPage(){
     ";
     return json_encode($content, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP);
 }
+
+//Эта функция записывает ваши данные в txt файл, который находится в папке вашего плагина
+function LogTXT($message, $data)
+{
+    file_put_contents(__DIR__ . '/log.txt', $message . PHP_EOL, FILE_APPEND);
+	$log = date('Y-m-d H:i:s') . ' ' . json_encode($data);
+	file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
+}
+
+
