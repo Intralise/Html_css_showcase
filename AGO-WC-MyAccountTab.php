@@ -24,7 +24,8 @@ function GeneratePageContent($subtab_slug) //Предположим что $subt
     //Небольшая вставка про отладку
     $var = 'test';
     LogTXT('Значение, которое мы хотим увидеть', $var);
-
+    //либо можно отлаживать код таким образом "question 2" выведется в консоль
+    echo("<script>console.log('php_array: ".json_encode('question 2')."');</script>");	
 
     //После того как функции вернули нам html код, мы должны его вывести на экран
     //Вывод происходит посредством ф-ции echo
